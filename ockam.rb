@@ -1,29 +1,44 @@
-# Documentation: https://docs.brew.sh/Formula-Cookbook
-#                https://rubydoc.brew.sh/Formula
-# PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
 class Ockam < Formula
-  desc "Ockam Command"
+  desc "End-to-end encryption and mutual authentication for distributed applications"
   homepage "https://github.com/build-trust/ockam"
-  url "https://github.com/build-trust/ockam/releases/download/v0.56.0/ockam"
-  sha256 "d1f7588af3b8ddcfc60d47503e8a05a7378089c1f3e015188ac9cbf6b504d063"
   license "Apache-2.0"
 
-  bottle do
-    root_url "https://github.com/build-trust/ockam/releases/download/v0.56.0"
-    sha256 cellar: :any, arm64_monterey: "f5e20566fe327e936dc97a4a5117e5e3842bd6c0254317e58911802ab301fd52" # ockam.aarch64-apple-darwin
-    sha256 cellar: :any, arm64_big_sur:  "f5e20566fe327e936dc97a4a5117e5e3842bd6c0254317e58911802ab301fd52" # ockam.aarch64-apple-darwin
-    sha256 cellar: :any, monterey:       "8ebe3cd75e669933df1ae6b77b2807778bc99f913a7ef8112b0c77be9a1a8a00" # ockam.x86_64-apple-darwin
-    sha256 cellar: :any, big_sur:        "8ebe3cd75e669933df1ae6b77b2807778bc99f913a7ef8112b0c77be9a1a8a00" # ockam.x86_64-apple-darwin
-    sha256 cellar: :any, catalina:       "8ebe3cd75e669933df1ae6b77b2807778bc99f913a7ef8112b0c77be9a1a8a00" # ockam.x86_64-apple-darwin
-    sha256 cellar: :any, mojave:         "8ebe3cd75e669933df1ae6b77b2807778bc99f913a7ef8112b0c77be9a1a8a00" # ockam.x86_64-apple-darwin
-    sha256 cellar: :any, high_sierra:    "8ebe3cd75e669933df1ae6b77b2807778bc99f913a7ef8112b0c77be9a1a8a00" # ockam.x86_64-apple-darwin
-    sha256 cellar: :any, x86_64_linux:   "d2a7bce3d095cc1d02bfbda8cfff6fe88e5b7b74b4ce0fac61fc7ab37d2628bf" # ockam.x86_64-unknown-linux-gnu
-    # Homebrew on Linux - Homebrew can run on 32-bit ARM (Raspberry Pi and others) and 64-bit ARM (AArch64), but no binary packages (bottles) are available.
-    # https://docs.brew.sh/Homebrew-on-Linux#arm
+  @@target = nil
+
+  if OS.mac?
+    if Hardware::CPU.arm?
+      @@target = "aarch64-apple-darwin"
+      sha256 "a3ebd41d28819c218deba0dd8021d9385f753a76cf97284bd244fb19d6081ec6"
+    end
+
+    if Hardware::CPU.intel?
+      @@target = "x86_64-apple-darwin"
+      sha256 "6a29a743418f2fbcefa0004d6a1e055fa5d0a497d15cca7ec3d0d642a36e50ad"
+    end
   end
 
-  # # For Linux aarch64 we can use install from source
-  # def install
-  #   ...
-  # end
+  if OS.linux?
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      @@target = "aarch64-unknown-linux-gnu"
+      sha256 "380bf150cf232f4c0ed0ee77c3339fbf0fb0b635970f6ffa3e3adca96e422f10"
+    end
+
+    if Hardware::CPU.intel?
+      @@target = "x86_64-unknown-linux-gnu"
+      sha256 "1b024013f9d8b3ebce2ae70583651ecef14e5970dc6689043b2e292f331f1f41"
+    end
+  end
+
+  url "#{homepage}/releases/download/ockam_v0.58.0/ockam.#{@@target}"
+
+  def install
+    if !@@target.nil?
+      mv "ockam.#{@@target}", "ockam"
+      bin.install "ockam"
+    end
+  end
+
+  test do
+    system "ockam", "--version"
+  end
 end
