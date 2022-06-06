@@ -1,0 +1,111 @@
+name: Homebrew Update Automation
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Ockam Tag To Update Homebrew To
+        required: true
+    schedule:
+      - cron: '*/10 * * * *'
+
+permissions:
+  # Contents permission allows us write to this repository.
+  contents: write
+  pull-requests: write
+
+jobs:
+  check_unique:
+    name: Check If Ockam Has An Updated Release
+    runs-on: ubuntu-20.04
+    outputs:
+      unique: ${{ steps.runner.outputs.unique }}
+      tag_name: ${{ steps.runner.outputs.tag_name }}
+
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+        with:
+          fetch-depth: 0
+          ref: cron_log
+
+      - uses: build-trust/.github/actions/ockam_tag_unique_check@custom-actions
+        id: runner
+
+  update_homebrew:
+    name: Update Home Brew Version
+    runs-on: ubuntu-20.04
+    needs: check_unique
+    steps:
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+        with:
+          fetch-depth: 0
+
+      - name: Download Github Release Files
+        id: release_asset
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -x
+          temp_dir=$(mktemp -d)
+          cd $temp_dir
+          gh release download ${{ needs.check_unique.outputs.tag_name }} -R build-trust/ockam
+          ls
+          echo ::set-output name=dir::$temp_dir
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@536b37ec5d5b543420bdfd9b744c5965bd4d8730
+
+      - name: Confirm File Signature
+        shell: bash
+        env:
+          PUB_KEY: '${{ secrets.COSIGN_PUBLIC_KEY }}'
+        working-directory: ${{ steps.release_asset.outputs.dir }}
+        run: |
+          # Confirm SHASum256.txt file with cosign
+          cosign verify-blob --key env://PUB_KEY --signature sha256sums.txt.sig sha256sums.txt || (echo "Failed verify check" && exit 1)
+
+          # Ensure each file SHA is valid
+          while read -r line; do
+            echo $line | sha256sum -c;
+          done < sha256sums.txt
+
+      - name: Update File With Specified SHASum256
+        shell: bash
+        run: |
+          set -x
+          temp_dir=$(mktemp -d)
+          cp .github/ockam.rb.template $temp_dir/ockam.rb
+          cd $temp_dir
+
+          while read -r line; do
+            files=($line)
+            if [[ ${files[1]} == *".so"* || ${files[1]} == *".sig"* ]]; then
+              echo "elixir nif library found, skipping."
+              continue
+            fi
+
+            sed -i "s/${files[1]}_sha256_value/${files[0]}/g" ockam.rb
+          done < ${{ steps.release_asset.outputs.dir }}/sha256sums.txt
+
+          sed -i "s/release_tag/${{ needs.check_unique.outputs.tag_name }}/g" ockam.rb
+
+          cp ockam.rb $GITHUB_WORKSPACE/ockam.rb
+          cat ockam.rb
+
+      - name: Push Update
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.email "bot@ockam.io"
+          git config --global user.name "Ockam Bot"
+
+          release_name="${{ needs.check_unique.outputs.tag_name }}_release_$(date +'%s')"
+          git checkout -B $release_name
+          git add ockam.rb
+          git commit -m "Update to release ${{ needs.check_unique.outputs.tag_name }}"
+          git push --set-upstream origin $release_name
+
+          gh pr create --title "${{ needs.check_unique.outputs.tag_name }} release" --body "Ockam release"\
+           --base main -H $release_name -r mrinalwadhwa -R build-trust/homebrew-ockam
