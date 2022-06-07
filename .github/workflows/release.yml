@@ -6,8 +6,8 @@ on:
       tag:
         description: Ockam Tag To Update Homebrew To
         required: true
-    schedule:
-      - cron: '*/10 * * * *'
+  schedule:
+    - cron: '*/10 * * * *'
 
 permissions:
   # Contents permission allows us write to this repository.
