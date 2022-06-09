@@ -14,6 +14,8 @@ permissions:
   contents: write
   # Actions permission allows us cancel workflows.
   actions: write
+  # Actions permission allows us create pull requests.
+  pull-requests: write
 
 jobs:
   check_unique:
@@ -107,3 +109,6 @@ jobs:
           git add ockam.rb
           git commit -m "Update to release ${{ needs.check_unique.outputs.tag_name }}"
           git push --set-upstream origin $release_name
+
+          gh pr create --title "${{ needs.check_unique.outputs.tag_name }} release" --body "Ockam release"\
+           --base main -H $release_name -r mrinalwadhwa
