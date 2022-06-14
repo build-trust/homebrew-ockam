@@ -1,4 +1,4 @@
-name: Homebrew Update Automation
+name: Create Bump Pull Request
 
 on:
   workflow_dispatch:
@@ -6,38 +6,17 @@ on:
       tag:
         description: Ockam Tag To Update Homebrew To. e.g. ockam_v0.59.0
         required: true
-  schedule:
-    - cron: '*/10 * * * *'
 
 permissions:
   # Allows us write to the repo
   contents: write
-  # Actions permission allows us cancel workflows.
-  actions: write
   # Actions permission allows us create pull requests.
   pull-requests: write
 
 jobs:
-  check_unique:
-    name: Check If Ockam Has An Updated Release
-    runs-on: ubuntu-20.04
-    outputs:
-      unique: ${{ steps.runner.outputs.unique }}
-      tag_name: ${{ steps.runner.outputs.tag_name }}
-
-    steps:
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
-        with:
-          fetch-depth: 0
-          ref: cron_log
-
-      - uses: build-trust/.github/actions/ockam_tag_unique_check@custom-actions
-        id: runner
-
   update_homebrew:
     name: Update Home Brew Version
     runs-on: ubuntu-20.04
-    needs: check_unique
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
         with:
@@ -52,7 +31,7 @@ jobs:
           set -x
           temp_dir=$(mktemp -d)
           cd $temp_dir
-          gh release download ${{ needs.check_unique.outputs.tag_name }} -R build-trust/ockam
+          gh release download ${{ github.event.inputs.tag }} -R build-trust/ockam
           ls
           echo ::set-output name=dir::$temp_dir
 
@@ -91,7 +70,7 @@ jobs:
             sed -i "s/${files[1]}_sha256_value/${files[0]}/g" ockam.rb
           done < ${{ steps.release_asset.outputs.dir }}/sha256sums.txt
 
-          sed -i "s/release_tag/${{ needs.check_unique.outputs.tag_name }}/g" ockam.rb
+          sed -i "s/release_tag/${{ github.event.inputs.tag }}/g" ockam.rb
 
           cp ockam.rb $GITHUB_WORKSPACE/ockam.rb
           cat ockam.rb
@@ -104,11 +83,11 @@ jobs:
           git config --global user.email "bot@ockam.io"
           git config --global user.name "Ockam Bot"
 
-          release_name="${{ needs.check_unique.outputs.tag_name }}_release_$(date +'%s')"
+          release_name="${{ github.event.inputs.tag }}_release_$(date +'%s')"
           git checkout -B $release_name
           git add ockam.rb
-          git commit -m "Update to release ${{ needs.check_unique.outputs.tag_name }}"
+          git commit -m "Update to release ${{ github.event.inputs.tag }}"
           git push --set-upstream origin $release_name
 
-          gh pr create --title "${{ needs.check_unique.outputs.tag_name }} release" --body "Ockam release"\
+          gh pr create --title "${{ github.event.inputs.tag }} release" --body "Ockam release"\
            --base main -H $release_name -r mrinalwadhwa
