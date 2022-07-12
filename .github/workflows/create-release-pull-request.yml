@@ -18,6 +18,8 @@ jobs:
     name: Update Home Brew Version
     runs-on: ubuntu-20.04
     environment: release
+    container:
+      image: ghcr.io/build-trust/ockam-builder@sha256:a04b6a0aa01a93ba9a5c67392872893b261772dedfcd58f72a1addacf7535c09
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
         with:
@@ -32,13 +34,13 @@ jobs:
           set -x
           temp_dir=$(mktemp -d)
           cd $temp_dir
-          gh release download ${{ github.event.inputs.tag }} -R build-trust/ockam
+          gh release download ${{ github.event.inputs.tag }} -R ${{ github.repository_owner }}/ockam
           ls
           echo ::set-output name=dir::$temp_dir
 
       - name: Import GPG key
         id: import_gpg
-        uses: hashicorp/ghaction-import-gpg@78437f97569a473e42b227be84d4084c2dfb49ba
+        uses: hashicorp/ghaction-import-gpg@39fd2610ffed1823ef4e96f2a373cdecf464c0df
         env:
           GPG_PRIVATE_KEY: '${{ secrets.GPG_PRIVATE_KEY }}'
           PASSPHRASE: '${{ secrets.GPG_PASSPHRASE }}'
