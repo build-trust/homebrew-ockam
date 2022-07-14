@@ -6,6 +6,12 @@ on:
       tag:
         description: Ockam Tag To Update Homebrew To. e.g. ockam_v0.59.0
         required: true
+      binaries:
+        description: Ockam Binaries And Their Image SHA
+        required: true
+      branch_name:
+        description: New Branch To Bump Crates
+        required: true
 
 permissions:
   # Allows us write to the repo
@@ -23,48 +29,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Download Github Release Files
-        id: release_asset
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
-        run: |
-          set -x
-          temp_dir=$(mktemp -d)
-          cd $temp_dir
-          gh release download ${{ github.event.inputs.tag }} -R build-trust/ockam
-          ls
-          echo ::set-output name=dir::$temp_dir
-
       - name: Import GPG key
-        id: import_gpg
-        uses: hashicorp/ghaction-import-gpg@78437f97569a473e42b227be84d4084c2dfb49ba
-        env:
-          GPG_PRIVATE_KEY: '${{ secrets.GPG_PRIVATE_KEY }}'
-          PASSPHRASE: '${{ secrets.GPG_PASSPHRASE }}'
+        uses: build-trust/.github/actions/import_gpg@custom-actions
+        with:
+          gpg_private_key: '${{ secrets.GPG_PRIVATE_KEY }}'
+          gpg_password: '${{ secrets.GPG_PASSPHRASE }}'
+          gpg_name: '${{ secrets.GPG_USER_NAME }}'
+          gpg_email: '${{ secrets.GPG_EMAIL }}'
 
-      - name: Add GPG Key
-        run: |
-          git config --global user.email "${{ secrets.GPG_EMAIL }}"
-          git config --global user.name "${{ secrets.GPG_USER_NAME }}"
-          git config --global user.signingkey "${{ steps.import_gpg.outputs.fingerprint }}"
-
-      - name: Install Cosign
-        uses: sigstore/cosign-installer@536b37ec5d5b543420bdfd9b744c5965bd4d8730
-
-      - name: Confirm File Signature
-        shell: bash
-        env:
-          PUB_KEY: '${{ secrets.COSIGN_PUBLIC_KEY }}'
-        working-directory: ${{ steps.release_asset.outputs.dir }}
-        run: |
-          # Confirm SHASum256.txt file with cosign
-          cosign verify-blob --key env://PUB_KEY --signature sha256sums.txt.sig sha256sums.txt || (echo "Failed verify check" && exit 1)
-
-          # Ensure each file SHA is valid
-          while read -r line; do
-            echo $line | sha256sum -c;
-          done < sha256sums.txt
+      - name: Checkout To New Branch
+        run: git checkout -B ${{ github.event.inputs.branch_name }}
 
       - name: Update File With Specified SHASum256
         shell: bash
@@ -74,15 +48,20 @@ jobs:
           cp .github/ockam.rb.template $temp_dir/ockam.rb
           cd $temp_dir
 
-          while read -r line; do
-            files=($line)
-            if [[ ${files[1]} == *".so"* || ${files[1]} == *".sig"* ]]; then
+          binaries=(${{ github.event.inputs.binaries }})
+
+          for binary in ${binaries[@]}; do
+            echo "$binary"
+            file=(${binary//:/ })
+            echo "${file[@]}"
+
+            if [[ ${file[0]} == *".so"* || ${file[0]} == *".sig"* ]]; then
               echo "elixir nif library found, skipping."
               continue
             fi
 
-            sed -i "s/${files[1]}_sha256_value/${files[0]}/g" ockam.rb
-          done < ${{ steps.release_asset.outputs.dir }}/sha256sums.txt
+            sed -i "s/${file[0]}_sha256_value/${file[1]}/g" ockam.rb
+          done
 
           sed -i "s/release_tag/${{ github.event.inputs.tag }}/g" ockam.rb
 
@@ -94,10 +73,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          release_name="release_$(date +'%d-%m-%Y')"
-
-          # Checkout to release branch
-          git checkout -B ${release_name}
           git add ockam.rb
           git commit -S -m "Update to release ${{ github.event.inputs.tag }}"
-          git push --set-upstream origin ${release_name}
+          git push --set-upstream origin ${{ github.event.inputs.branch_name }}
