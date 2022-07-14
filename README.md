@@ -11,3 +11,9 @@ Install Ockam
 ```
 brew install ockam
 ```
+
+Upgrade Ockam
+
+```
+brew update && brew upgrade ockam
+```
