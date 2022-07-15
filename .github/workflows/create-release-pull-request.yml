@@ -74,5 +74,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git add ockam.rb
-          git commit -S -m "Update to release ${{ github.event.inputs.tag }}"
+          git commit -S -m "ci: update to release ${{ github.event.inputs.tag }}"
           git push --set-upstream origin ${{ github.event.inputs.branch_name }}
