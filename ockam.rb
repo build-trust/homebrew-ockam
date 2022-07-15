@@ -8,8 +8,8 @@ class Ockam < Formula
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.64.0/ockam.aarch64-apple-darwin"
-      sha256 "8cd447d428f7326cb14327383ac575ba327d8d3a0c7ba18b9f7e8de9001ba3db"
+      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.65.0/ockam.aarch64-apple-darwin"
+      sha256 "46cd01f0fb7822cdd3124a5d8bd975b1ddf0dd4a3da944d6946282d94b21d6f8"
 
       def install
         mv "ockam.aarch64-apple-darwin", "ockam"
@@ -18,8 +18,8 @@ class Ockam < Formula
     end
 
     if Hardware::CPU.intel?
-      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.64.0/ockam.x86_64-apple-darwin"
-      sha256 "1ea80256e77eee20837a5cf52e231d9f347bbaef948fae080ba1c92cec063914"
+      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.65.0/ockam.x86_64-apple-darwin"
+      sha256 "40017e7b05320b5235e7bc62126af15ffafe8c4a87bfeb9cdf289c95d2476de8"
 
       def install
         mv "ockam.x86_64-apple-darwin", "ockam"
@@ -30,8 +30,8 @@ class Ockam < Formula
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.64.0/ockam.aarch64-unknown-linux-gnu"
-      sha256 "b3dd6d83a16fbae8619a51aa0b0a10e3c5c6e6cf9457ed2e80da3fa2e3a857ea"
+      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.65.0/ockam.aarch64-unknown-linux-gnu"
+      sha256 "29c2d7a9f4148a403b9528e9899d7b2e5a0e0ec4d85089171d2d58af8b2cf0b6"
 
       def install
         mv "ockam.aarch64-unknown-linux-gnu", "ockam"
@@ -40,8 +40,8 @@ class Ockam < Formula
     end
 
     if Hardware::CPU.intel?
-      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.64.0/ockam.x86_64-unknown-linux-gnu"
-      sha256 "70a302220408bf2617170d8659ef8f73c3e6851161fbfa6a152d808e446af0d4"
+      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.65.0/ockam.x86_64-unknown-linux-gnu"
+      sha256 "53ce78ad1c16f54b683db2641d5006e5d4744d13793f81928344c227a2bc5daa"
 
       def install
         mv "ockam.x86_64-unknown-linux-gnu", "ockam"
