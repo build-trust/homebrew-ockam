@@ -45,7 +45,7 @@ jobs:
         run: |
           set -x
           temp_dir=$(mktemp -d)
-          cp .github/command.rb.template $temp_dir/command.rb
+          cp .github/ockam.rb.template $temp_dir/ockam.rb
           cd $temp_dir
 
           binaries=(${{ github.event.inputs.binaries }})
@@ -60,19 +60,19 @@ jobs:
               continue
             fi
 
-            sed -i "s/${file[0]}_sha256_value/${file[1]}/g" command.rb
+            sed -i "s/${file[0]}_sha256_value/${file[1]}/g" ockam.rb
           done
 
-          sed -i "s/release_tag/${{ github.event.inputs.tag }}/g" command.rb
+          sed -i "s/release_tag/${{ github.event.inputs.tag }}/g" ockam.rb
 
-          cp command.rb $GITHUB_WORKSPACE/command.rb
-          cat command.rb
+          cp ockam.rb $GITHUB_WORKSPACE/ockam.rb
+          cat ockam.rb
 
       - name: Push Update
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git add command.rb
+          git add ockam.rb
           git commit -S -m "ci: update to release ${{ github.event.inputs.tag }}"
           git push --set-upstream origin ${{ github.event.inputs.branch_name }}
