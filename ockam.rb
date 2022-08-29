@@ -8,49 +8,62 @@ class Ockam < Formula
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.70.0/ockam.aarch64-apple-darwin"
-      sha256 "475a20a3d1a71d4b7abc84e8cfdfb948ccdf567bfd4416810dfcf7a89c9e7baa"
+      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.71.0/ockam.aarch64-apple-darwin"
+      sha256 "ac3ce69f6dbce4329f766179c1302f8c72187a067e6ff743c2974a0967de5e5c"
 
       def install
         mv "ockam.aarch64-apple-darwin", "ockam"
         bin.install "ockam"
+        (bash_completion/"ockam").write `#{bin}/ockam completion --shell bash`
+        (fish_completion/"ockam.fish").write `#{bin}/ockam completion --shell fish`
+        (zsh_completion/"_ockam").write `#{bin}/ockam completion --shell zsh`
       end
     end
 
     if Hardware::CPU.intel?
-      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.70.0/ockam.x86_64-apple-darwin"
-      sha256 "af0c860d33179bcb6f7d15193b7eaea11b00cd89a9d4380c813f2dfd58325a52"
+      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.71.0/ockam.x86_64-apple-darwin"
+      sha256 "db643e45ff415c1ae3137b7bf4e3b569a24db3d351811cd0508ee9bac838d691"
 
       def install
         mv "ockam.x86_64-apple-darwin", "ockam"
         bin.install "ockam"
+        (bash_completion/"ockam").write `#{bin}/ockam completion --shell bash`
+        (fish_completion/"ockam.fish").write `#{bin}/ockam completion --shell fish`
+        (zsh_completion/"_ockam").write `#{bin}/ockam completion --shell zsh`
       end
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.70.0/ockam.aarch64-unknown-linux-gnu"
-      sha256 "8331ff0c9fe70b938d524f84a16b2ab4eba7305c8c53c346d99e5a429041efd3"
+      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.71.0/ockam.aarch64-unknown-linux-gnu"
+      sha256 "26598b0f39c1c65f758510c272687f716cfdd2fbdb3d1a1c639794308b8b4b25"
 
       def install
         mv "ockam.aarch64-unknown-linux-gnu", "ockam"
         bin.install "ockam"
+        (bash_completion/"ockam").write `#{bin}/ockam completion --shell bash`
+        (fish_completion/"ockam.fish").write `#{bin}/ockam completion --shell fish`
+        (zsh_completion/"_ockam").write `#{bin}/ockam completion --shell zsh`
       end
     end
 
     if Hardware::CPU.intel?
-      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.70.0/ockam.x86_64-unknown-linux-gnu"
-      sha256 "7dac17cf61698461d3fb6ac16ab7cf80693f5e0ef06fe0c471eb4043740a8e96"
+      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.71.0/ockam.x86_64-unknown-linux-gnu"
+      sha256 "2ae12c26c5004fa94c0f8a956e47dd7e7dd3d8dd00bf99ac22dab1406886d693"
 
       def install
         mv "ockam.x86_64-unknown-linux-gnu", "ockam"
         bin.install "ockam"
+        (bash_completion/"ockam").write `#{bin}/ockam completion --shell bash`
+        (fish_completion/"ockam.fish").write `#{bin}/ockam completion --shell fish`
+        (zsh_completion/"_ockam").write `#{bin}/ockam completion --shell zsh`
       end
     end
   end
 
   test do
     system "ockam", "--version"
+    assert_match "ockam_v0.71.0".sub!("_", " "), shell_output("#{bin}/ockam -V")
   end
 end
