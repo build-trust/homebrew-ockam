@@ -14,9 +14,6 @@ class Ockam < Formula
       def install
         mv "ockam.aarch64-apple-darwin", "ockam"
         bin.install "ockam"
-        (bash_completion/"ockam").write `#{bin}/ockam completion --shell bash`
-        (fish_completion/"ockam.fish").write `#{bin}/ockam completion --shell fish`
-        (zsh_completion/"_ockam").write `#{bin}/ockam completion --shell zsh`
       end
     end
 
@@ -27,9 +24,6 @@ class Ockam < Formula
       def install
         mv "ockam.x86_64-apple-darwin", "ockam"
         bin.install "ockam"
-        (bash_completion/"ockam").write `#{bin}/ockam completion --shell bash`
-        (fish_completion/"ockam.fish").write `#{bin}/ockam completion --shell fish`
-        (zsh_completion/"_ockam").write `#{bin}/ockam completion --shell zsh`
       end
     end
   end
@@ -42,9 +36,6 @@ class Ockam < Formula
       def install
         mv "ockam.aarch64-unknown-linux-gnu", "ockam"
         bin.install "ockam"
-        (bash_completion/"ockam").write `#{bin}/ockam completion --shell bash`
-        (fish_completion/"ockam.fish").write `#{bin}/ockam completion --shell fish`
-        (zsh_completion/"_ockam").write `#{bin}/ockam completion --shell zsh`
       end
     end
 
@@ -55,15 +46,11 @@ class Ockam < Formula
       def install
         mv "ockam.x86_64-unknown-linux-gnu", "ockam"
         bin.install "ockam"
-        (bash_completion/"ockam").write `#{bin}/ockam completion --shell bash`
-        (fish_completion/"ockam.fish").write `#{bin}/ockam completion --shell fish`
-        (zsh_completion/"_ockam").write `#{bin}/ockam completion --shell zsh`
       end
     end
   end
 
   test do
     system "ockam", "--version"
-    assert_match "ockam_v0.71.0".sub!("_", " "), shell_output("#{bin}/ockam -V")
   end
 end
