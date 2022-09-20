@@ -30,21 +30,21 @@ class Ockam < Formula
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/build-trust/ockam/releases/download/release_tag/ockam.aarch64-unknown-linux-gnu"
-      sha256 "ockam.aarch64-unknown-linux-gnu_sha256_value"
+      url "https://github.com/build-trust/ockam/releases/download/release_tag/ockam.aarch64-unknown-linux-musl"
+      sha256 "ockam.aarch64-unknown-linux-musl_sha256_value"
 
       def install
-        mv "ockam.aarch64-unknown-linux-gnu", "ockam"
+        mv "ockam.aarch64-unknown-linux-musl", "ockam"
         bin.install "ockam"
       end
     end
 
     if Hardware::CPU.intel?
-      url "https://github.com/build-trust/ockam/releases/download/release_tag/ockam.x86_64-unknown-linux-gnu"
-      sha256 "ockam.x86_64-unknown-linux-gnu_sha256_value"
+      url "https://github.com/build-trust/ockam/releases/download/release_tag/ockam.x86_64-unknown-linux-musl"
+      sha256 "ockam.x86_64-unknown-linux-musl_sha256_value"
 
       def install
-        mv "ockam.x86_64-unknown-linux-gnu", "ockam"
+        mv "ockam.x86_64-unknown-linux-musl", "ockam"
         bin.install "ockam"
       end
     end
