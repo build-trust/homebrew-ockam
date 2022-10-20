@@ -12,8 +12,7 @@ class Ockam < Formula
       sha256 "ockam.aarch64-apple-darwin_sha256_value"
 
       def install
-        mv "ockam.aarch64-apple-darwin", "ockam"
-        bin.install "ockam"
+        bin.install "ockam.aarch64-apple-darwin" => "ockam"
       end
     end
 
@@ -22,8 +21,7 @@ class Ockam < Formula
       sha256 "ockam.x86_64-apple-darwin_sha256_value"
 
       def install
-        mv "ockam.x86_64-apple-darwin", "ockam"
-        bin.install "ockam"
+        bin.install "ockam.x86_64-apple-darwin" => "ockam"
       end
     end
   end
@@ -34,8 +32,7 @@ class Ockam < Formula
       sha256 "ockam.aarch64-unknown-linux-musl_sha256_value"
 
       def install
-        mv "ockam.aarch64-unknown-linux-musl", "ockam"
-        bin.install "ockam"
+        bin.install "ockam.aarch64-unknown-linux-musl" => "ockam"
       end
     end
 
@@ -44,8 +41,7 @@ class Ockam < Formula
       sha256 "ockam.x86_64-unknown-linux-musl_sha256_value"
 
       def install
-        mv "ockam.x86_64-unknown-linux-musl", "ockam"
-        bin.install "ockam"
+        bin.install "ockam.x86_64-unknown-linux-musl" => "ockam"
       end
     end
   end
