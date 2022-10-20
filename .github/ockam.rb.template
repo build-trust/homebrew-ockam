@@ -13,6 +13,7 @@ class Ockam < Formula
 
       def install
         bin.install "ockam.aarch64-apple-darwin" => "ockam"
+        system "chmod", "+x", bin/"ockam"
       end
     end
 
@@ -22,6 +23,7 @@ class Ockam < Formula
 
       def install
         bin.install "ockam.x86_64-apple-darwin" => "ockam"
+        system "chmod", "+x", bin/"ockam"
       end
     end
   end
@@ -33,6 +35,7 @@ class Ockam < Formula
 
       def install
         bin.install "ockam.aarch64-unknown-linux-musl" => "ockam"
+        system "chmod", "+x", bin/"ockam"
       end
     end
 
@@ -42,6 +45,7 @@ class Ockam < Formula
 
       def install
         bin.install "ockam.x86_64-unknown-linux-musl" => "ockam"
+        system "chmod", "+x", bin/"ockam"
       end
     end
   end
