@@ -1,0 +1,40 @@
+name: Verify Installation
+
+permissions:
+  contents: read
+
+on: [workflow_dispatch, pull_request, push]
+
+jobs:
+  verify_homebrew_macos_12:
+    name: MacOS 12
+    runs-on: macos-12
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - name: Install Ockam
+        run: |
+          set -e
+
+          brew install build-trust/ockam/ockam
+          ockam --version
+
+          ls -l /usr/local/etc/bash_completion.d/ockam
+
+          echo "Ockam was successfully installed via Homebrew on MacOS 12." | tee -a $GITHUB_STEP_SUMMARY
+
+  verify_homebrew_ubuntu_22_04:
+    name: Ubuntu 22.04
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+      - name: Install Ockam
+        run: |
+          set -e
+
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          brew install build-trust/ockam/ockam
+          ockam --version
+
+          ls -l /home/linuxbrew/.linuxbrew/etc/bash_completion.d/ockam
+
+          echo "Ockam was successfully installed via Homebrew on Ubuntu 22.04." | tee -a $GITHUB_STEP_SUMMARY
