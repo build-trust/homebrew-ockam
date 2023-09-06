@@ -69,7 +69,7 @@ jobs:
           sed -i "s/release_tag/${{ github.event.inputs.tag }}/g" ockam_app.rb
 
           cp ockam.rb $GITHUB_WORKSPACE/ockam.rb
-          cp ockam_app.rb $GITHUB_WORKSPACE/ockam_app.rb
+          cp ockam_app.rb $GITHUB_WORKSPACE/Casks/ockam_app.rb
           cat ockam.rb
 
       - name: Push Update
