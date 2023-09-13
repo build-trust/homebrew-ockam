@@ -1,20 +1,20 @@
-cask "ockam_app" do
+cask "ockam-app" do
   version "release_tag"
-  name "Ockam App"
+  name "Ockam"
   desc "End-to-end encryption and mutual authentication for distributed applications"
   homepage "https://github.com/build-trust/ockam"
 
   if Hardware::CPU.arm?
-    url "https://github.com/build-trust/ockam/releases/download/release_tag/Ockam_App_aarch64-apple-darwin.dmg"
-    sha256 "Ockam_App_aarch64-apple-darwin.dmg_sha256_value"
+    url "https://github.com/build-trust/ockam/releases/download/release_tag/ockam.app.aarch64-apple-darwin.dmg"
+    sha256 "ockam.app.aarch64-apple-darwin.dmg_sha256_value"
    end
 
   if Hardware::CPU.intel?
-    url "https://github.com/build-trust/ockam/releases/download/release_tag/Ockam_App_x86_64-apple-darwin.dmg"
-    sha256 "Ockam_App_x86_64-apple-darwin.dmg_sha256_value"
+    url "https://github.com/build-trust/ockam/releases/download/release_tag/ockam.app.x86_64-apple-darwin.dmg"
+    sha256 "ockam.app.x86_64-apple-darwin.dmg_sha256_value"
   end
 
   depends_on formula: "ockam"
-  app "Ockam App.app"
+  app "Ockam.app"
   uninstall quit: "io.ockam.app"
 end
