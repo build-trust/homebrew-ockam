@@ -5,8 +5,8 @@ cask "ockam-app" do
   homepage "https://github.com/build-trust/ockam"
 
   if Hardware::CPU.arm?
-    url "https://github.com/build-trust/ockam/releases/download/ockam_v0.98.0/ockam.app.aarch64-apple-darwin.dmg"
-    sha256 "dbb4f9c8888310687daabfbc1522f58fedb14e7bf6adc7bb5c265d3203bcb36d"
+    url "https://github.com/build-trust/ockam/releases/download/ockam_v0.98.0/ockam.app.aarch64-apple-darwin-swiftui.dmg"
+    sha256 "894afd90fb933ba595cc3387cd404e99238b9de56d143e2f76e5de17c0583428"
    end
 
   if Hardware::CPU.intel?
