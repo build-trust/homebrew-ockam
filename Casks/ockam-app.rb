@@ -1,17 +1,17 @@
 cask "ockam-app" do
-  version "ockam_v0.101.0"
+  version "ockam_v0.102.0"
   name "Ockam"
   desc "End-to-end encryption and mutual authentication for distributed applications"
   homepage "https://github.com/build-trust/ockam"
 
   if Hardware::CPU.arm?
-    url "https://github.com/build-trust/ockam/releases/download/ockam_v0.101.0/ockam.app.aarch64-apple-darwin.dmg"
-    sha256 "c9e160c66b6700216ca6b768ae7db3a62e4891c1c38f2cfe96bb51398c240730"
+    url "https://github.com/build-trust/ockam/releases/download/ockam_v0.102.0/ockam.app.aarch64-apple-darwin.dmg"
+    sha256 "9274411e4757df65724657ddad73d37734a9096797540b18ecb1350ea1f7bfdf"
    end
 
   if Hardware::CPU.intel?
-    url "https://github.com/build-trust/ockam/releases/download/ockam_v0.101.0/ockam.app.x86_64-apple-darwin.dmg"
-    sha256 "039d2c167c6ead46f8fc95a0a4d9b8fccead518608ee3d0bdbae66af4ade9725"
+    url "https://github.com/build-trust/ockam/releases/download/ockam_v0.102.0/ockam.app.x86_64-apple-darwin.dmg"
+    sha256 "de704e3e86f18c1ae4e64f4f4cd1be2e872837011e3844ed9d2d6418a7fc24c9"
   end
 
   depends_on formula: "ockam"
