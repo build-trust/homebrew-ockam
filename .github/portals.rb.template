@@ -1,6 +1,6 @@
-cask "ockam-app" do
+cask "portals" do
   version "release_tag"
-  name "Ockam"
+  name "Portals, by Ockam"
   desc "End-to-end encryption and mutual authentication for distributed applications"
   homepage "https://github.com/build-trust/ockam"
 

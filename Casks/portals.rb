@@ -1,5 +1,5 @@
-cask "ockam-app" do
-  version "ockam_v0.111.0"
+cask "portals" do
+  version "ockam_v0.110.0"
   name "Ockam"
   desc "End-to-end encryption and mutual authentication for distributed applications"
   homepage "https://github.com/build-trust/ockam"
