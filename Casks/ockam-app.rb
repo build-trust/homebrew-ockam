@@ -15,6 +15,6 @@ cask "ockam-app" do
   end
 
   depends_on formula: "ockam"
-  app "Ockam.app"
+  app "Portals, by Ockam.app"
   uninstall quit: "io.ockam.app"
 end
