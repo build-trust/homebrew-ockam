@@ -1,7 +1,7 @@
 cask "portals" do
   version "release_tag"
   name "Portals, by Ockam"
-  desc "End-to-end encryption and mutual authentication for distributed applications"
+  desc "Privately share TCP services from your Mac with anyone, anywhere."
   homepage "https://github.com/build-trust/ockam"
 
   if Hardware::CPU.arm?

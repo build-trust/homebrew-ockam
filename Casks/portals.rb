@@ -1,7 +1,7 @@
 cask "portals" do
   version "ockam_v0.110.0"
-  name "Ockam"
-  desc "End-to-end encryption and mutual authentication for distributed applications"
+  name "Portals, by Ockam"
+  desc "Privately share TCP services from your Mac with anyone, anywhere."
   homepage "https://github.com/build-trust/ockam"
 
   if Hardware::CPU.arm?
@@ -16,5 +16,5 @@ cask "portals" do
 
   depends_on formula: "ockam"
   app "Portals, by Ockam.app"
-  uninstall quit: "io.ockam.app"
+  uninstall quit: "io.ockam.Ockam"
 end
