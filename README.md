@@ -1,19 +1,29 @@
 # homebrew-ockam
 
-Tap the Ockam Homebrew Formula
+## Ockam CLI Installation
+
+### Install Ockam
 
 ```
-brew tap build-trust/ockam
+brew install --cask build-trust/ockam/ockam
 ```
 
-Install Ockam
-
-```
-brew install ockam
-```
-
-Upgrade Ockam
+### Upgrade Ockam
 
 ```
 brew update && brew upgrade ockam
+```
+
+## Ockam Desktop App Installation
+
+### Install Portals
+
+```
+brew install --cask build-trust/ockam/portals --no-quarantine
+```
+
+### Upgrade Portals
+
+```
+brew update && brew upgrade portals
 ```
