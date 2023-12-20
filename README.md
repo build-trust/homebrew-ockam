@@ -19,7 +19,7 @@ brew update && brew upgrade ockam
 ### Install Portals
 
 ```
-brew install --cask build-trust/ockam/portals --no-quarantine
+brew install --cask build-trust/ockam/portals
 ```
 
 ### Upgrade Portals
