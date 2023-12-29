@@ -1,25 +1,23 @@
 # homebrew-ockam
 
-## Ockam CLI Installation
-
-### Install Ockam
+### Install Ockam Command
 
 ```
-brew install --cask build-trust/ockam/ockam
+brew install build-trust/ockam/ockam
 ```
 
-### Upgrade Ockam
+### Upgrade Ockam Command
 
 ```
 brew update && brew upgrade ockam
 ```
 
-## Ockam Desktop App Installation
+## Install Portals for Mac
 
 ### Install Portals
 
 ```
-brew install --cask build-trust/ockam/portals
+brew install build-trust/ockam/portals
 ```
 
 ### Upgrade Portals
