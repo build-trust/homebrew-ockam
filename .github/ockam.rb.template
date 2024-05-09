@@ -8,7 +8,7 @@ class Ockam < Formula
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/build-trust/ockam/releases/download/release_tag/ockam.aarch64-apple-darwin"
+      url "release_url/release_tag/ockam.aarch64-apple-darwin"
       sha256 "ockam.aarch64-apple-darwin_sha256_value"
 
       def install
@@ -19,7 +19,7 @@ class Ockam < Formula
     end
 
     if Hardware::CPU.intel?
-      url "https://github.com/build-trust/ockam/releases/download/release_tag/ockam.x86_64-apple-darwin"
+      url "release_url/release_tag/ockam.x86_64-apple-darwin"
       sha256 "ockam.x86_64-apple-darwin_sha256_value"
 
       def install
@@ -32,7 +32,7 @@ class Ockam < Formula
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/build-trust/ockam/releases/download/release_tag/ockam.aarch64-unknown-linux-musl"
+      url "release_url/release_tag/ockam.aarch64-unknown-linux-musl"
       sha256 "ockam.aarch64-unknown-linux-musl_sha256_value"
 
       def install
@@ -43,7 +43,7 @@ class Ockam < Formula
     end
 
     if Hardware::CPU.intel?
-      url "https://github.com/build-trust/ockam/releases/download/release_tag/ockam.x86_64-unknown-linux-musl"
+      url "release_url/release_tag/ockam.x86_64-unknown-linux-musl"
       sha256 "ockam.x86_64-unknown-linux-musl_sha256_value"
 
       def install

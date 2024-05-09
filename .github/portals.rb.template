@@ -5,12 +5,12 @@ cask "portals" do
   homepage "https://github.com/build-trust/ockam"
 
   if Hardware::CPU.arm?
-    url "https://github.com/build-trust/ockam/releases/download/release_tag/ockam.app.aarch64-apple-darwin.dmg"
+    url "release_url/release_tag/ockam.app.aarch64-apple-darwin.dmg"
     sha256 "ockam.app.aarch64-apple-darwin.dmg_sha256_value"
    end
 
   if Hardware::CPU.intel?
-    url "https://github.com/build-trust/ockam/releases/download/release_tag/ockam.app.x86_64-apple-darwin.dmg"
+    url "release_url/release_tag/ockam.app.x86_64-apple-darwin.dmg"
     sha256 "ockam.app.x86_64-apple-darwin.dmg_sha256_value"
   end
 
