@@ -1,17 +1,17 @@
 cask "portals" do
-  version "ockam_v0.138.0"
+  version "ockam_v0.139.0"
   name "Portals, by Ockam"
   desc "Privately share TCP services from your Mac with anyone, anywhere."
   homepage "https://github.com/build-trust/ockam"
 
   if Hardware::CPU.arm?
-    url "https://github.com/build-trust/ockam/releases/download/ockam_v0.138.0/ockam.app.aarch64-apple-darwin.dmg"
-    sha256 "fd0a9467bcc6e062227af3770ab5c9ed4c6014d9887ade98e7b04c5d4dd5de98"
+    url "https://github.com/build-trust/ockam/releases/download/ockam_v0.139.0/ockam.app.aarch64-apple-darwin.dmg"
+    sha256 "fc57af58443056871b78854429d6346a78e109730703298da0a9fd91ce33296d"
    end
 
   if Hardware::CPU.intel?
-    url "https://github.com/build-trust/ockam/releases/download/ockam_v0.138.0/ockam.app.x86_64-apple-darwin.dmg"
-    sha256 "390f11fd1aa6fd039a21eb3298d4dec284b8857f58c1932b06182dea0cae033e"
+    url "https://github.com/build-trust/ockam/releases/download/ockam_v0.139.0/ockam.app.x86_64-apple-darwin.dmg"
+    sha256 "da7e3428af2a5acdcd97398e12962996613638640b71ba1fc862743531a40281"
   end
 
   depends_on formula: "ockam"
