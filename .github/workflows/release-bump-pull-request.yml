@@ -24,6 +24,8 @@ jobs:
     name: Update Home Brew Version
     runs-on: ubuntu-20.04
     environment: release
+    env:
+      RELEASE_URL: ${{ vars.RELEASE_URL }}
     steps:
       - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29
         with:
@@ -48,6 +50,9 @@ jobs:
           cp .github/ockam.rb.template $temp_dir/ockam.rb
           cp .github/portals.rb.template $temp_dir/portals.rb
           cd $temp_dir
+
+          sed -i "s/release_url/${{ vars.RELEASE_URL }}/g" ockam.rb
+          sed -i "s/release_url/${{ vars.RELEASE_URL }}/g" portals.rb
 
           binaries=(${{ github.event.inputs.binaries }})
 
