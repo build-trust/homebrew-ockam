@@ -8,8 +8,8 @@ class Ockam < Formula
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.141.0/ockam.aarch64-apple-darwin"
-      sha256 "e67acadf73856e454adfa3b670b00babb1196020ae730a7da3342b9c77715287"
+      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.142.0/ockam.aarch64-apple-darwin"
+      sha256 "a065f269067e8859178b46d69c4be849a70d23b5ab50c08142b2547148b64b2a"
 
       def install
         bin.install "ockam.aarch64-apple-darwin" => "ockam"
@@ -19,8 +19,8 @@ class Ockam < Formula
     end
 
     if Hardware::CPU.intel?
-      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.141.0/ockam.x86_64-apple-darwin"
-      sha256 "9d4f0fec625c296e37fdcba52d949e9b144f3d9cd70e05778b24daa766139ce1"
+      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.142.0/ockam.x86_64-apple-darwin"
+      sha256 "5ef59612b9f5e77422693ec9b80bba39a44342def874b8675e78c6b70470eb68"
 
       def install
         bin.install "ockam.x86_64-apple-darwin" => "ockam"
@@ -32,8 +32,8 @@ class Ockam < Formula
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.141.0/ockam.aarch64-unknown-linux-musl"
-      sha256 "cc6352f53cc6bf71e0b61ea97e78f83e6dede5dea030d785e4c7acad3a2bcf3c"
+      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.142.0/ockam.aarch64-unknown-linux-musl"
+      sha256 "a28dd2da3e4a8bd06ebb5c0377d574e6fd737ca66856fcbd895febb89656d4a4"
 
       def install
         bin.install "ockam.aarch64-unknown-linux-musl" => "ockam"
@@ -43,8 +43,8 @@ class Ockam < Formula
     end
 
     if Hardware::CPU.intel?
-      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.141.0/ockam.x86_64-unknown-linux-musl"
-      sha256 "ab29f3501c736acb6d9cb48028b1aeaf50bf42be558eddecbe4dfcd2f43cd8fe"
+      url "https://github.com/build-trust/ockam/releases/download/ockam_v0.142.0/ockam.x86_64-unknown-linux-musl"
+      sha256 "780de33da138ce445ef75c190c151d0afdc9d74369cadf60556d0c9e78f21e16"
 
       def install
         bin.install "ockam.x86_64-unknown-linux-musl" => "ockam"
