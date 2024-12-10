@@ -6,9 +6,9 @@ permissions:
 on: [workflow_dispatch, pull_request, push]
 
 jobs:
-  verify_homebrew_macos_12:
-    name: MacOS 12
-    runs-on: macos-12
+  verify_homebrew_macos_14:
+    name: MacOS 14
+    runs-on: macos-14
     steps:
       - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29
       - name: Install Ockam
@@ -18,9 +18,9 @@ jobs:
           brew install build-trust/ockam/ockam
           ockam --version
 
-          ls -l /usr/local/etc/bash_completion.d/ockam
+          ls -l /opt/homebrew/etc/bash_completion.d/ockam
 
-          echo "Ockam was successfully installed via Homebrew on MacOS 12." | tee -a $GITHUB_STEP_SUMMARY
+          echo "Ockam was successfully installed via Homebrew on MacOS 14." | tee -a $GITHUB_STEP_SUMMARY
 
   verify_homebrew_ubuntu_22_04:
     name: Ubuntu 22.04
