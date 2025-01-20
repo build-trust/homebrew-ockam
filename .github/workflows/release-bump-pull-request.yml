@@ -24,6 +24,8 @@ jobs:
     name: Update Home Brew Version
     runs-on: ubuntu-20.04
     environment: release
+    env:
+      RELEASE_URL: "https://downloads.ockam.io/command"
     steps:
       - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29
         with:
@@ -47,6 +49,8 @@ jobs:
           temp_dir=$(mktemp -d)
           cp .github/ockam.rb.template $temp_dir/ockam.rb
           cd $temp_dir
+
+          sed -i "s/release_url/${{ env.RELEASE_URL }}/g" ockam.rb
 
           binaries=(${{ github.event.inputs.binaries }})
 
