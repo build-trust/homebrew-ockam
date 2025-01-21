@@ -50,7 +50,7 @@ jobs:
           cp .github/ockam.rb.template $temp_dir/ockam.rb
           cd $temp_dir
 
-          sed -i "s/release_url/${{ env.RELEASE_URL }}/g" ockam.rb
+          sed -i "s#release_url#${{ env.RELEASE_URL }}#g" ockam.rb
 
           binaries=(${{ github.event.inputs.binaries }})
 
