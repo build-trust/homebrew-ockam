@@ -8,8 +8,8 @@ class Ockam < Formula
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://downloads.ockam.io/command/v0.148.0/ockam.aarch64-apple-darwin"
-      sha256 "2dda3990715e3b66093553c590504163319e469765155abf77c5cd071b966a4c"
+      url "https://downloads.ockam.io/command/v0.149.0/ockam.aarch64-apple-darwin"
+      sha256 "6ad217d45b2e0c25056e11aaaba445ca305053f2f7dba664fc9926135d2f4cce"
 
       def install
         bin.install "ockam.aarch64-apple-darwin" => "ockam"
@@ -19,8 +19,8 @@ class Ockam < Formula
     end
 
     if Hardware::CPU.intel?
-      url "https://downloads.ockam.io/command/v0.148.0/ockam.x86_64-apple-darwin"
-      sha256 "78dd57a3c7fe80ece1c9a74c98e4d598f265cacbbb2749d103f2fc635206ed86"
+      url "https://downloads.ockam.io/command/v0.149.0/ockam.x86_64-apple-darwin"
+      sha256 "d5f824cbb92f4dbbc98cbd33a24670683f93b95e4945f229d0b1b50c0a11a5b2"
 
       def install
         bin.install "ockam.x86_64-apple-darwin" => "ockam"
@@ -32,8 +32,8 @@ class Ockam < Formula
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://downloads.ockam.io/command/v0.148.0/ockam.aarch64-unknown-linux-musl"
-      sha256 "759b0a6377d252b6c753af18cf4197806863b871d00cbdeb13b2d0f57b368aa3"
+      url "https://downloads.ockam.io/command/v0.149.0/ockam.aarch64-unknown-linux-musl"
+      sha256 "f7f8860e6abd9c75263ccd3832a0d9b421fd6ecb9efcac2652936a5e7a2f288f"
 
       def install
         bin.install "ockam.aarch64-unknown-linux-musl" => "ockam"
@@ -43,8 +43,8 @@ class Ockam < Formula
     end
 
     if Hardware::CPU.intel?
-      url "https://downloads.ockam.io/command/v0.148.0/ockam.x86_64-unknown-linux-musl"
-      sha256 "4eb59362ec1a3e65a6e5730399f05d134cd7b37967dfce319e5e8c881922f7e8"
+      url "https://downloads.ockam.io/command/v0.149.0/ockam.x86_64-unknown-linux-musl"
+      sha256 "ebbf6d6909c6d981c297d90521d3e6c16b7652e3ed7a19a7b06bf8baf40557ca"
 
       def install
         bin.install "ockam.x86_64-unknown-linux-musl" => "ockam"
