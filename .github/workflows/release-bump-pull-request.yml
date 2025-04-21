@@ -22,7 +22,7 @@ permissions:
 jobs:
   update_homebrew:
     name: Update Home Brew Version
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     environment: release
     env:
       RELEASE_URL: "https://downloads.ockam.io/command"
